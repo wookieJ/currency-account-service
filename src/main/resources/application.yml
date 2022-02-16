@@ -2,3 +2,6 @@ exchange:
   clients:
     nbp:
       url: http://api.nbp.pl
+
+logging.level:
+  com.account.nbp.NBPClient: DEBUG
