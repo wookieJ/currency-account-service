@@ -11,6 +11,8 @@ import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
 import org.springframework.test.context.event.annotation.AfterTestExecution
 import org.springframework.web.client.RestTemplate
+import java.math.BigDecimal
+import java.time.LocalDate
 import javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
 import javax.servlet.http.HttpServletResponse.SC_OK
 
@@ -29,7 +31,7 @@ class IntegrationTest {
         @DynamicPropertySource
         @JvmStatic
         fun registerDynamicProperties(registry: DynamicPropertyRegistry) {
-            registry.add("clients.nbp.url") { "http://localhost:${nbpWebApiMock.port()}" }
+            registry.add("exchange.clients.nbp.url") { "http://localhost:${nbpWebApiMock.port()}" }
         }
 
         @AfterTestExecution
@@ -49,7 +51,7 @@ class IntegrationTest {
         nbpWebApiMock.resetAll()
     }
 
-    fun stubGetUSDExchangeRateToday() {
+    fun stubGetUSDExchangeRateToday(effectiveDate: LocalDate, bid: BigDecimal, ask: BigDecimal) {
         nbpWebApiMock.stubFor(
             WireMock.get("/api/exchangerates/rates/C/USD/today")
                 .willReturn(
@@ -65,9 +67,9 @@ class IntegrationTest {
                                 "rates": [ 
                                     {
                                         "no": "030/C/NBP/2022",
-                                        "effectiveDate": "2022-02-14",
-                                        "bid": 3.9374,
-                                        "ask": 4.017
+                                        "effectiveDate": "$effectiveDate",
+                                        "bid": $bid,
+                                        "ask": $ask
                                     }
                                 ]
                             }

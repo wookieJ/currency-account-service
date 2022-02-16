@@ -13,10 +13,10 @@ import org.junit.jupiter.api.Test
 import org.mockito.Mockito
 import java.math.BigDecimal
 
-class InMemoryAccountServiceTest {
+class AccountServiceImplTest {
 
     private val accountRepository = Mockito.mock(AccountRepository::class.java)
-    private val inMemoryAccountService = InMemoryAccountService(accountRepository)
+    private val inMemoryAccountService = AccountServiceImpl(accountRepository)
 
     @Test
     fun `should return user account if exists`() {

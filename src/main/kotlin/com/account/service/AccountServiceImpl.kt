@@ -5,7 +5,7 @@ import com.account.repository.AccountRepository
 import org.springframework.stereotype.Service
 
 @Service
-class InMemoryAccountService(
+class AccountServiceImpl(
     val accountsCollection: AccountRepository
 ) : AccountService {
 

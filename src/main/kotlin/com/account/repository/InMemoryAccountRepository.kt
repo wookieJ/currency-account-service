@@ -12,9 +12,9 @@ import java.math.BigDecimal
 class InMemoryAccountRepository : AccountRepository {
 
     private final val accountsCollection: Map<String, Account> = mapOf(
-        "1" to Account("1", BigDecimal.valueOf(0), CurrencyCode.PLN),
+        "1" to Account("1", BigDecimal.valueOf(765.84), CurrencyCode.PLN),
         "2" to Account("2", BigDecimal.valueOf(-1.99), CurrencyCode.PLN),
-        "3" to Account("3", BigDecimal.valueOf(9), CurrencyCode.PLN),
+        "3" to Account("3", BigDecimal.valueOf(0), CurrencyCode.PLN),
         "4" to Account("4", BigDecimal.valueOf(999), CurrencyCode.PLN),
         "5" to Account("5", BigDecimal.valueOf(12_000_000), CurrencyCode.PLN),
         "6" to Account("6", BigDecimal.valueOf(0.21), CurrencyCode.PLN),

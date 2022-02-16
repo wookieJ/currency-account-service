@@ -1,1 +1,4 @@
-
+exchange:
+  clients:
+    nbp:
+      url: http://api.nbp.pl
