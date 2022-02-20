@@ -13,3 +13,10 @@ Service uses [NBP API](https://api.nbp.pl) to get exchange rate. To ensure more 
 following features are implemented:
  * Retries when NBP return 5xx status code.
  * Cache on getting exchange rate, because NBP refresh data every new day.
+
+## Swagger
+Check API docs in swagger:
+[https://currency-account-service.herokuapp.com/swagger](https://currency-account-service.herokuapp.com/swagger)
+
+Account response field are described here:
+[https://currency-account-service.herokuapp.com/swagger#account-controller/getAccount](https://currency-account-service.herokuapp.com/swagger#account-controller/getAccount)
