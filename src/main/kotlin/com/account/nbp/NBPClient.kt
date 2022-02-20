@@ -6,6 +6,6 @@ import feign.RequestLine
 @Headers("Accept: application/json", "Content-Type: application/json")
 interface NBPClient {
 
-    @RequestLine("GET /api/exchangerates/rates/C/USD/today")
+    @RequestLine("GET /api/exchangerates/rates/C/USD/last")
     fun getTodayUSDExchangeRate(): ExchangeRateResponse
 }

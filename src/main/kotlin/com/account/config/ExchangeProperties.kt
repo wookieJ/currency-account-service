@@ -6,7 +6,8 @@ import org.springframework.boot.context.properties.ConstructorBinding
 @ConfigurationProperties(prefix = "exchange")
 @ConstructorBinding
 data class ExchangeProperties(
-    val clients: Clients
+    val clients: Clients,
+    val retries: Retries
 ) {
     @ConstructorBinding
     data class Clients(
@@ -17,4 +18,11 @@ data class ExchangeProperties(
             val url: String
         )
     }
+
+    @ConstructorBinding
+    data class Retries(
+        val minWaitSeconds: Long,
+        val maxWaitSeconds: Long,
+        val retryCount: Int
+    )
 }

@@ -2,6 +2,10 @@ exchange:
   clients:
     nbp:
       url: http://api.nbp.pl
+  retries:
+    minWaitSeconds: 1
+    maxWaitSeconds: 3
+    retryCount: 5
 
 logging.level:
   com.account.nbp.NBPClient: DEBUG

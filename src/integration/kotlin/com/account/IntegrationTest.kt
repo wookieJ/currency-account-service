@@ -4,6 +4,7 @@ import com.github.tomakehurst.wiremock.WireMockServer
 import com.github.tomakehurst.wiremock.client.WireMock
 import com.github.tomakehurst.wiremock.common.ConsoleNotifier
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration
+import com.github.tomakehurst.wiremock.stubbing.Scenario
 import org.junit.jupiter.api.BeforeEach
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.web.server.LocalServerPort
@@ -13,7 +14,7 @@ import org.springframework.test.context.event.annotation.AfterTestExecution
 import org.springframework.web.client.RestTemplate
 import java.math.BigDecimal
 import java.time.LocalDate
-import javax.servlet.http.HttpServletResponse.SC_NOT_FOUND
+import javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR
 import javax.servlet.http.HttpServletResponse.SC_OK
 
 @SpringBootTest(
@@ -51,9 +52,9 @@ class IntegrationTest {
         nbpWebApiMock.resetAll()
     }
 
-    fun stubGetUSDExchangeRateToday(effectiveDate: LocalDate, bid: BigDecimal, ask: BigDecimal) {
+    fun stubGetUSDExchangeRate(effectiveDate: LocalDate, bid: BigDecimal, ask: BigDecimal) {
         nbpWebApiMock.stubFor(
-            WireMock.get("/api/exchangerates/rates/C/USD/today")
+            WireMock.get("/api/exchangerates/rates/C/USD/last")
                 .willReturn(
                     WireMock.aResponse()
                         .withStatus(SC_OK)
@@ -79,14 +80,45 @@ class IntegrationTest {
         )
     }
 
-    fun stubGetUSDExchangeRateTodayNotFound() {
+    fun stubGetUSDExchangeRateFlappingResponse(effectiveDate: LocalDate, bid: BigDecimal, ask: BigDecimal) {
+        val scenarioName = "First request 500, second 200"
         nbpWebApiMock.stubFor(
-            WireMock.get("/api/exchangerates/rates/C/USD/today")
+            WireMock.get("/api/exchangerates/rates/C/USD/last")
+                .inScenario(scenarioName)
+                .whenScenarioStateIs(Scenario.STARTED)
                 .willReturn(
                     WireMock.aResponse()
-                        .withStatus(SC_NOT_FOUND)
+                        .withStatus(SC_INTERNAL_SERVER_ERROR)
                         .withHeader("Content-Type", "text/plain")
-                        .withBody("Brak danych")
+                )
+                .willSetStateTo("SECOND_TRY")
+        )
+
+        nbpWebApiMock.stubFor(
+            WireMock.get("/api/exchangerates/rates/C/USD/last")
+                .inScenario(scenarioName)
+                .whenScenarioStateIs("SECOND_TRY")
+                .willReturn(
+                    WireMock.aResponse()
+                        .withStatus(SC_OK)
+                        .withHeader("Content-Type", "application/json")
+                        .withBody(
+                            """
+                            {
+                                "table": "C",
+                                "currency": "dolar amerykański",
+                                "code": "USD",
+                                "rates": [
+                                    {
+                                        "no": "030/C/NBP/2022",
+                                        "effectiveDate": "$effectiveDate",
+                                        "bid": $bid,
+                                        "ask": $ask
+                                    }
+                                ]
+                            }
+                            """.trimIndent()
+                        )
                 )
         )
     }
