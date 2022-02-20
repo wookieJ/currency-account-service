@@ -26,6 +26,7 @@ dependencies {
     implementation("io.github.openfeign:feign-core:9.3.1")
     implementation("io.github.openfeign:feign-jackson:9.3.1")
     implementation("com.github.ben-manes.caffeine:caffeine:3.0.5")
+    implementation("org.springdoc:springdoc-openapi-ui:1.6.6")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.8.2")

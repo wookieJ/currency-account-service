@@ -9,3 +9,7 @@ exchange:
 
 logging.level:
   com.account.nbp.NBPClient: DEBUG
+
+springdoc:
+  swagger-ui:
+    path: /swagger
