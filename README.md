@@ -20,3 +20,7 @@ Check API docs in swagger:
 
 Account response field are described here (in schema section):
 [https://currency-account-service.herokuapp.com/swagger#account-controller/getAccount](https://currency-account-service.herokuapp.com/swagger#account-controller/getAccount)
+
+## To do
+Things to implement in the future:
+ * Circuit-breaker pattern (instead of retries)
