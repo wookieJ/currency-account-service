@@ -1,4 +1,5 @@
-#Account-service-api
+#account-service-api
+
 [![Build](https://github.com/wookieJ/account-service-api/actions/workflows/ci.yml/badge.svg?branch=master&event=push)](https://github.com/wookieJ/account-service-api/actions/workflows/ci.yml)
 
 [https://currency-account-service.herokuapp.com/api/v1/accounts/1](https://currency-account-service.herokuapp.com/api/v1/accounts/1)
