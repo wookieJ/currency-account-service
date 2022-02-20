@@ -18,5 +18,5 @@ following features are implemented:
 Check API docs in swagger:
 [https://currency-account-service.herokuapp.com/swagger](https://currency-account-service.herokuapp.com/swagger)
 
-Account response field are described here:
+Account response field are described here (in schema section):
 [https://currency-account-service.herokuapp.com/swagger#account-controller/getAccount](https://currency-account-service.herokuapp.com/swagger#account-controller/getAccount)
