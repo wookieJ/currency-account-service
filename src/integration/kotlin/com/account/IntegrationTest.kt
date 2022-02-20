@@ -8,6 +8,7 @@ import com.github.tomakehurst.wiremock.stubbing.Scenario
 import org.junit.jupiter.api.BeforeEach
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.web.server.LocalServerPort
+import org.springframework.cache.CacheManager
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
 import org.springframework.test.context.event.annotation.AfterTestExecution
@@ -22,12 +23,12 @@ import javax.servlet.http.HttpServletResponse.SC_OK
     properties = ["application.environment=integration"],
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
 )
-class IntegrationTest {
+class IntegrationTest(private val cacheManager: CacheManager) {
 
     val restTemplate: RestTemplate = RestTemplate()
 
     companion object {
-        private val nbpWebApiMock = WireMockServer(WireMockConfiguration.options().dynamicPort().notifier(ConsoleNotifier(true))).apply { start() }
+        val nbpWebApiMock = WireMockServer(WireMockConfiguration.options().dynamicPort().notifier(ConsoleNotifier(true))).apply { start() }
 
         @DynamicPropertySource
         @JvmStatic
@@ -50,6 +51,11 @@ class IntegrationTest {
     @BeforeEach
     fun setup() {
         nbpWebApiMock.resetAll()
+        clearCaches()
+    }
+
+    private fun clearCaches() {
+        cacheManager.cacheNames.forEach { cacheManager.getCache(it)?.clear() }
     }
 
     fun stubGetUSDExchangeRate(effectiveDate: LocalDate, bid: BigDecimal, ask: BigDecimal) {

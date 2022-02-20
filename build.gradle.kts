@@ -16,14 +16,16 @@ repositories {
 }
 
 dependencies {
-    implementation("io.github.microutils:kotlin-logging:2.1.21")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation("org.springframework.boot:spring-boot-starter-cache")
+    implementation("io.github.microutils:kotlin-logging:2.1.21")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("io.github.openfeign:feign-core:9.3.1")
     implementation("io.github.openfeign:feign-jackson:9.3.1")
+    implementation("com.github.ben-manes.caffeine:caffeine:3.0.5")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.8.2")
@@ -37,9 +39,11 @@ dependencies {
 
 sourceSets {
     create("integration") {
-        resources.srcDir("src/integration/resources")
-        compileClasspath += sourceSets["main"].output + configurations["testRuntimeClasspath"]
-        runtimeClasspath += output + compileClasspath + sourceSets["test"].runtimeClasspath
+        withConvention(org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet::class) {
+            resources.srcDir("src/integration/resources")
+            compileClasspath += sourceSets["main"].output + configurations["testRuntimeClasspath"]
+            runtimeClasspath += output + compileClasspath + sourceSets["test"].runtimeClasspath
+        }
     }
 }
 
