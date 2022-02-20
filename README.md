@@ -1,4 +1,4 @@
-# account-service-api
+# currency-account-service
 
 [![Build](https://github.com/wookieJ/account-service-api/actions/workflows/ci.yml/badge.svg?branch=master&event=push)](https://github.com/wookieJ/account-service-api/actions/workflows/ci.yml)
 
