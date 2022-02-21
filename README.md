@@ -24,3 +24,4 @@ Account response fields are described here (schema section):
 ## To do
 Things to implement in the future:
  * Circuit-breaker pattern (instead of retries)
+ * Better requests debug logs format
