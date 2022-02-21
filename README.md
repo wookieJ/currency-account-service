@@ -4,8 +4,8 @@
 
 [https://currency-account-service.herokuapp.com/api/v1/accounts/1](https://currency-account-service.herokuapp.com/api/v1/accounts/1)
 
-Example service with REST API with in-memory users accounts with PLN balance. API endpoint returns account with
-USD balance using external currency converter. Authentication and authorization is handle on another layer.
+Example service with in-memory users accounts with PLN balance. API endpoint returns account by user's id with
+USD balance converted by external exchange rate service. Authentication and authorization is handle on another layer.
 
 ## PLN to USD Conversion
 
@@ -18,7 +18,7 @@ following features are implemented:
 Check API docs in swagger:
 [https://currency-account-service.herokuapp.com/swagger](https://currency-account-service.herokuapp.com/swagger)
 
-Account response field are described here (in schema section):
+Account response fields are described here (schema section):
 [https://currency-account-service.herokuapp.com/swagger#account-controller/getAccount](https://currency-account-service.herokuapp.com/swagger#account-controller/getAccount)
 
 ## To do
